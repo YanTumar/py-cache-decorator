@@ -1,10 +1,10 @@
-from typing import Callable
+from typing import Callable, Any
 
 
 def cache(func: Callable) -> Callable:
     cache_storage = {}
 
-    def wrapper(*args, **kwargs):
+    def wrapper(*args: Any, **kwargs: Any) -> Any:
 
         key = (args, tuple(sorted(kwargs.items())))
 
@@ -23,8 +23,8 @@ def cache(func: Callable) -> Callable:
 
 
 @cache
-def long_time_func(a: int, b: int, c: int) -> int:
-    return (a ** b ** c) % (a * c)
+def long_time_func(first: int, second: int, third: int) -> int:
+    return (first ** second ** third) % (first * third)
 
 
 @cache
@@ -38,10 +38,3 @@ long_time_func_2((5, 6, 7), 5)
 long_time_func(1, 2, 3)
 long_time_func_2((5, 6, 7), 10)
 long_time_func_2((5, 6, 7), 10)
-
-# Calculating new result
-# Calculating new result
-# Calculating new result
-# Getting from cache
-# Calculating new result
-# Getting from cache
